@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyStore.Models
 {
@@ -20,6 +21,7 @@ namespace MyStore.Models
         public decimal Price { get; set; }
 
         [Required]
+        [ForeignKey("Menu")]
         public long MenuId { get; set; }
     }
 }

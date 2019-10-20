@@ -14,13 +14,14 @@ namespace MyStore.Data
             {
                 context.Employees.AddRange(
 
-                    new Employee{
+                    new Employee
+                    {
                         Id = 0001,
                         Name = "Admin",
                         Position = "Admin",
                         Wage = 25m,
                         IsCurrentEmployee = true,
-                        Password = 0
+                        Password = "0"
                     },
                     new Employee
                     {
@@ -29,7 +30,7 @@ namespace MyStore.Data
                         Position = "Manager",
                         Wage = 15m,
                         IsCurrentEmployee = true,
-                        Password = 1111
+                        Password = "1111"
                     },
                     new Employee
                     {
@@ -38,7 +39,7 @@ namespace MyStore.Data
                         Position = "Team Member",
                         Wage = 10m,
                         IsCurrentEmployee = true,
-                        Password = 1111
+                        Password = "1111"
                     }
                 );
 

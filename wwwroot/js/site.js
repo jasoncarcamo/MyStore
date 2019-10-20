@@ -1,17 +1,24 @@
-const endpoint = 'api/Employees';
+const endpoint = '/Login';
 
 
-document.getElementById("submit-button").addEventListener("click", (e) => {
+document.getElementById("clockin-button").addEventListener("click", (e) => {
     e.preventDefault();
 
     fetch(endpoint, {
-        mode: "no-cors",
-        redirect: "follow",
+        method:"POST",
         headers: {
             'content-type': "application/json"
-        }
+        },
+        body: JSON.stringify({ Name: document.getElementById("employee-name").value, Password: document.getElementById("employee-password").value })
     })
-        .then(res => res.json())
+        .then(res => {
+
+            if (!res.ok) {
+                return res.json().then(e => Promise.reject(e))
+            };
+
+            return res.json();
+        })
         .then(data => console.log(data))
         .catch(error => console.log(error));
 })

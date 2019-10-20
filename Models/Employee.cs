@@ -21,6 +21,6 @@ namespace MyStore.Models
         public bool IsCurrentEmployee { get; set; }
 
         [Required]
-        public double Password{get; set;}
+        public string Password { get; set; }
     }
 }

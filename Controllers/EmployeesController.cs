@@ -1,7 +1,7 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyStore.Data;
@@ -9,7 +9,7 @@ using MyStore.Models;
 
 namespace MyStore.Controllers
 {
-    
+
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeesController : ControllerBase
@@ -22,7 +22,7 @@ namespace MyStore.Controllers
         }
 
         // GET: api/Employees
-        
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
         {
@@ -30,9 +30,15 @@ namespace MyStore.Controllers
         }
 
         // GET: api/Employees/5
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(long id)
         {
+            if (User.Identity.Name == null)
+            {
+                return Unauthorized();
+            }
+
             var employee = await _context.Employees.FindAsync(id);
 
             if (employee == null)
@@ -46,6 +52,7 @@ namespace MyStore.Controllers
         // PUT: api/Employees/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEmployee(long id, Employee employee)
         {

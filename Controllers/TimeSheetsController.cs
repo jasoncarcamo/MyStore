@@ -10,7 +10,7 @@ using MyStore.Models;
 
 namespace MyStore.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Employees")]
     [ApiController]
     public class TimeSheetsController : ControllerBase
     {
@@ -22,14 +22,14 @@ namespace MyStore.Controllers
         }
 
         // GET: api/TimeSheets
-        [HttpGet]
+        [HttpGet("[controller]")]
         public async Task<ActionResult<IEnumerable<TimeSheet>>> GetTimeSheets()
         {
             return await _context.TimeSheets.ToListAsync();
         }
 
         // GET: api/TimeSheets/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}/[controller]")]
         public async Task<ActionResult<TimeSheet>> GetTimeSheet(long id)
         {
             var timeSheet = await _context.TimeSheets.FindAsync(id);
@@ -45,10 +45,10 @@ namespace MyStore.Controllers
         // PUT: api/TimeSheets/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTimeSheet(long id, TimeSheet timeSheet)
+        [HttpPut("{id}/[controller]")]
+        public async Task<IActionResult> PutTimeSheet(long id, long employeeId, TimeSheet timeSheet)
         {
-            if (id != timeSheet.Id)
+            if (id != timeSheet.Id && employeeId != timeSheet.EmployeeId)
             {
                 return BadRequest();
             }
@@ -77,7 +77,7 @@ namespace MyStore.Controllers
         // POST: api/TimeSheets
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost]
+        [HttpPost("{id}/[controller]")]
         public async Task<ActionResult<TimeSheet>> PostTimeSheet(TimeSheet timeSheet)
         {
             _context.TimeSheets.Add(timeSheet);
@@ -87,7 +87,7 @@ namespace MyStore.Controllers
         }
 
         // DELETE: api/TimeSheets/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}/[controller]")]
         public async Task<ActionResult<TimeSheet>> DeleteTimeSheet(long id)
         {
             var timeSheet = await _context.TimeSheets.FindAsync(id);

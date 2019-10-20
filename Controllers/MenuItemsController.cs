@@ -10,7 +10,7 @@ using MyStore.Models;
 
 namespace MyStore.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Menus")]
     [ApiController]
     public class MenuItemsController : ControllerBase
     {
@@ -21,15 +21,15 @@ namespace MyStore.Controllers
             _context = context;
         }
 
-        // GET: api/MenuItems
-        [HttpGet]
+        // GET: api/Menus
+        [HttpGet("MenuItems")]
         public async Task<ActionResult<IEnumerable<MenuItem>>> GetItems()
         {
             return await _context.Items.ToListAsync();
         }
 
-        // GET: api/MenuItems/5
-        [HttpGet("{id}")]
+        // GET: api/Menus/1/MenuItems
+        [HttpGet("{id}/MenuItems")]
         public async Task<ActionResult<MenuItem>> GetMenuItem(long id)
         {
             var menuItem = await _context.Items.FindAsync(id);
@@ -42,10 +42,10 @@ namespace MyStore.Controllers
             return menuItem;
         }
 
-        // PUT: api/MenuItems/5
+        // PUT: api/Menus/1/MenuItems
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
+        [HttpPut("{id}/MenuItems")]
         public async Task<IActionResult> PutMenuItem(long id, MenuItem menuItem)
         {
             if (id != menuItem.Id)
@@ -74,10 +74,10 @@ namespace MyStore.Controllers
             return NoContent();
         }
 
-        // POST: api/MenuItems
+        // POST: api/Menus/1/MenuItems
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost]
+        [HttpPost("{id}/MenuItems")]
         public async Task<ActionResult<MenuItem>> PostMenuItem(MenuItem menuItem)
         {
             _context.Items.Add(menuItem);
@@ -86,8 +86,8 @@ namespace MyStore.Controllers
             return CreatedAtAction("GetMenuItem", new { id = menuItem.Id }, menuItem);
         }
 
-        // DELETE: api/MenuItems/5
-        [HttpDelete("{id}")]
+        // DELETE: api/Menus/1/MenuItems
+        [HttpDelete("{id}/MenuItems")]
         public async Task<ActionResult<MenuItem>> DeleteMenuItem(long id)
         {
             var menuItem = await _context.Items.FindAsync(id);
